@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.ui.screens
+package com.muratguzel.tastygo.presentation.splash.view
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Column

@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.ui.screens
+package com.muratguzel.tastygo.presentation.onboarding.view
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
@@ -37,9 +37,9 @@ import com.airbnb.lottie.compose.LottieAnimation
 import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
-import com.muratguzel.tastygo.data.entity.listData
-import com.muratguzel.tastygo.ui.theme.Grey
-import com.muratguzel.tastygo.ui.theme.Orange
+import com.muratguzel.tastygo.presentation.onboarding.model.listData
+import com.muratguzel.tastygo.presentation.ui.theme.Grey
+import com.muratguzel.tastygo.presentation.ui.theme.Orange
 import kotlinx.coroutines.launch
 
 @OptIn(ExperimentalFoundationApi::class)

@@ -1,6 +1,5 @@
-package com.muratguzel.tastygo.ui.theme
+package com.muratguzel.tastygo.presentation.ui.theme
 
-import android.app.Activity
 import android.os.Build
 import androidx.compose.foundation.isSystemInDarkTheme
 import androidx.compose.material3.MaterialTheme

@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.data.entity
+package com.muratguzel.tastygo.presentation.onboarding.model
 
 import androidx.annotation.RawRes
 import com.muratguzel.tastygo.R

@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.ui.theme
+package com.muratguzel.tastygo.presentation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
