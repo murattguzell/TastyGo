@@ -2,6 +2,8 @@ plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
+    id("com.google.devtools.ksp")
+    id("com.google.dagger.hilt.android")
 }
 
 android {
@@ -58,5 +60,14 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation (libs.lottie.compose)
-
+    implementation("io.coil-kt:coil-compose:2.7.0")
+    // Retrofit + OkHttp
+    implementation(libs.retrofit)
+    implementation(libs.converter.gson)
+    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
+    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
+    // Dagger Hilt
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
+    implementation(libs.androidx.hilt.navigation.compose)
 }
