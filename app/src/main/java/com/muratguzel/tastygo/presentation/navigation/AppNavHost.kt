@@ -2,9 +2,11 @@ package com.muratguzel.tastygo.presentation.navigation
 
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.navigation.NavGraph.Companion.findStartDestination
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.muratguzel.tastygo.presentation.foods.view.FoodListScreen
 import com.muratguzel.tastygo.presentation.onboarding.view.OnBoardingScreen
 import com.muratguzel.tastygo.presentation.splash.view.SplashScreen
 
@@ -28,8 +30,18 @@ fun AppNavHost(
             }
         }
         composable(NavigationItem.OnBoarding.route) {
-            OnBoardingScreen()
+            OnBoardingScreen {
+                navController.popBackStack(
+                    route = NavigationItem.OnBoarding.route,
+                    inclusive = true
+                )
+                navController.navigate(NavigationItem.FoodListScreen.route) {
+                    launchSingleTop = true
+                }
+            }
+        }
+        composable(NavigationItem.FoodListScreen.route) {
+            FoodListScreen()
         }
     }
-
 }

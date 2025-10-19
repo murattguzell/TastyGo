@@ -13,25 +13,26 @@ import com.airbnb.lottie.compose.LottieCompositionSpec
 import com.airbnb.lottie.compose.LottieConstants
 import com.airbnb.lottie.compose.rememberLottieComposition
 import com.muratguzel.tastygo.R
+import com.muratguzel.tastygo.presentation.common.components.LottieLoader
 import kotlinx.coroutines.delay
 
 
 @Composable
 fun SplashScreen(onTimeout: () -> Unit) {
-    val composition by rememberLottieComposition(LottieCompositionSpec.RawRes(R.raw.hamburger))
-
-    Column(modifier = Modifier
-        .fillMaxSize()
-        .background(Color.White)) {
-        LottieAnimation(
-            composition = composition,
-            iterations = LottieConstants.IterateForever,
+    Column(
+        modifier = Modifier
+            .fillMaxSize()
+            .background(Color.White)
+    ) {
+        // LottieLoader component’ini burada çağırıyoruz
+        LottieLoader(
+            resId = R.raw.hamburger,
             modifier = Modifier.weight(1f)
         )
     }
     LaunchedEffect(Unit) {
-        delay(3000) // 3 saniye bekle
-        onTimeout() // Zamanlayıcı bitince ana ekranı göster
+        delay(3000)
+        onTimeout()
     }
 
 }
