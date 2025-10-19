@@ -60,7 +60,7 @@ dependencies {
     debugImplementation(libs.androidx.ui.tooling)
     debugImplementation(libs.androidx.ui.test.manifest)
     implementation (libs.lottie.compose)
-    implementation("io.coil-kt:coil-compose:2.7.0")
+    implementation(libs.coil.compose)
     // Retrofit + OkHttp
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
@@ -70,4 +70,5 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
     implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.datastore.preferences)
 }
