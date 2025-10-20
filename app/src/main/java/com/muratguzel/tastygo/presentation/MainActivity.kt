@@ -23,12 +23,9 @@ class MainActivity : ComponentActivity() {
             val navController = rememberNavController()
 
             TastyGoTheme {
-                Scaffold(modifier = Modifier.fillMaxSize(), containerColor = Color.White) { innerPadding ->
-                    AppNavHost(
-                        navController = navController,
-                        modifier = Modifier.padding(innerPadding)
-                    )
-                }
+                AppNavHost(
+                    navController = navController,
+                )
             }
         }
     }
