@@ -1,7 +1,11 @@
 package com.muratguzel.tastygo.presentation.navigation
 
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.CenterAlignedTopAppBar
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Scaffold
+import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -23,7 +27,9 @@ import com.muratguzel.tastygo.presentation.onboarding.viewmodel.OnboardingViewMo
 import com.muratguzel.tastygo.presentation.splash.view.SplashScreen
 import com.muratguzel.tastygo.presentation.navigation.components.BottomBar
 import com.muratguzel.tastygo.presentation.profile.view.ProfileScreen
+import com.muratguzel.tastygo.presentation.ui.theme.Orange
 
+@OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AppNavHost(
     modifier: Modifier = Modifier,
@@ -71,7 +77,7 @@ fun AppNavHost(
                 ?.get("food")
 
             if (food != null) {
-                FoodDetailScreen(food = food)
+                FoodDetailScreen(food = food, onBackClick = {navController.popBackStack()}, onFavoriteClick = {})
             }
         }
 
@@ -80,7 +86,16 @@ fun AppNavHost(
             val bottomNavController = rememberNavController()
             Scaffold(
                 bottomBar = { BottomBar(navController = bottomNavController) },
-                containerColor = Color.Transparent
+                containerColor = Color.Transparent,
+                topBar = {
+                    CenterAlignedTopAppBar(
+                        title = { Text("TastyGO", color = Color.Black) },
+                        colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
+                            containerColor = Orange
+                        )
+                    )
+                },
+
             ) { innerPadding ->
                 NavHost(
                     navController = bottomNavController,
@@ -96,7 +111,9 @@ fun AppNavHost(
                                     ?.set("food", food)
 
                                 navController.navigate(NavigationItem.FoodDetailScreen.route)
-                            }
+                            },
+                            addOnClick = { /* ... */ }
+
                         )
                     }
                     //
