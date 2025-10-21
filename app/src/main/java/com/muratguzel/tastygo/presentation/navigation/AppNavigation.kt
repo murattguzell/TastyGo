@@ -11,6 +11,7 @@ enum class Screen {
     SPLASH,
     ONBOARDING,
     FOODLISTSCREEN,
+    FOODDETAILSCREEN,
     FAVORITES,
     CART,
     PROFILE
@@ -19,7 +20,7 @@ enum class Screen {
 sealed class NavigationItem(val route: String) {
     object Splash : NavigationItem(Screen.SPLASH.name)
     object OnBoarding : NavigationItem(Screen.ONBOARDING.name)
-    object FoodListScreen : NavigationItem(Screen.FOODLISTSCREEN.name)
+    object FoodDetailScreen : BottomNavItem(Screen.FOODDETAILSCREEN.name, "Detay Sayfa", Icons.Filled.Home)
 }
 
 sealed class BottomNavItem(val route: String, val title: String, val icon: ImageVector) {

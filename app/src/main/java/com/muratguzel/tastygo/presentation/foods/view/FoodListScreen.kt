@@ -14,10 +14,12 @@ import androidx.compose.ui.unit.dp
 import com.muratguzel.tastygo.presentation.foods.components.FoodItem
 import com.muratguzel.tastygo.presentation.foods.viewmodel.FoodViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.muratguzel.tastygo.domain.model.Food
 
 @Composable
 fun FoodListScreen(
-    foodViewModel: FoodViewModel =  hiltViewModel()
+    foodViewModel: FoodViewModel = hiltViewModel(),
+    cardOnClick: (Food) -> Unit
 ) {
     val state = foodViewModel.foodState.value
 
@@ -38,9 +40,9 @@ fun FoodListScreen(
                 price = food.foodPrice,
                 imageUrl = food.foodImageName,
                 onAddClick = { /* ... */ },
-                cardOnClick = { /* ... */ }
+                cardOnClick = { cardOnClick(food) }
             )
-            Log.e("FoodImage",food.foodImageName)
+            Log.e("FoodImage", food.foodImageName)
         }
     }
 }

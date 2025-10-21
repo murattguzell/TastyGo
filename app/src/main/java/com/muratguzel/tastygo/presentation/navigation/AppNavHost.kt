@@ -1,9 +1,7 @@
 package com.muratguzel.tastygo.presentation.navigation
 
-import androidx.compose.foundation.layout.WindowInsets
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
@@ -14,7 +12,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.navArgument
+import com.muratguzel.tastygo.domain.model.Food
 import com.muratguzel.tastygo.presentation.cart.view.CartScreen
+import com.muratguzel.tastygo.presentation.detail.view.FoodDetailScreen
 import com.muratguzel.tastygo.presentation.favorites.view.FavoritesScreen
 import com.muratguzel.tastygo.presentation.foods.view.FoodListScreen
 import com.muratguzel.tastygo.presentation.onboarding.view.OnBoardingScreen
@@ -40,7 +41,7 @@ fun AppNavHost(
         composable(NavigationItem.Splash.route) {
             SplashScreen {
                 val target = if (skipOnboarding) {
-                    "main_nav"                 // <<< BURASI
+                    "main_nav"
                 } else {
                     NavigationItem.OnBoarding.route
                 }
@@ -58,30 +59,47 @@ fun AppNavHost(
                     route = NavigationItem.OnBoarding.route,
                     inclusive = true
                 )
-                navController.navigate("main_nav") {  // <<< BURASI
+                navController.navigate("main_nav") {
                     launchSingleTop = true
                 }
             }
         }
 
-        // İstersen bunu bırakabilirsin (deep link vb. için), ama artık ana akışta kullanılmayacak
-        composable(NavigationItem.FoodListScreen.route) {
-            FoodListScreen()
+        composable(route = NavigationItem.FoodDetailScreen.route) {
+            val food: Food? = navController.previousBackStackEntry
+                ?.savedStateHandle
+                ?.get("food")
+
+            if (food != null) {
+                FoodDetailScreen(food = food)
+            }
         }
 
-        // <<< YENİ: BottomBar’lı ana kapsayıcı ekran
+
         composable("main_nav") {
             val bottomNavController = rememberNavController()
             Scaffold(
                 bottomBar = { BottomBar(navController = bottomNavController) },
-                containerColor =  Color.Transparent
+                containerColor = Color.Transparent
             ) { innerPadding ->
                 NavHost(
                     navController = bottomNavController,
                     startDestination = Screen.FOODLISTSCREEN.name,
                     modifier = Modifier.padding(innerPadding),
                 ) {
-                    composable(Screen.FOODLISTSCREEN.name) { FoodListScreen() }
+                    //
+                    composable(Screen.FOODLISTSCREEN.name) {
+                        FoodListScreen(
+                            cardOnClick = { food ->
+                                navController.currentBackStackEntry
+                                    ?.savedStateHandle
+                                    ?.set("food", food)
+
+                                navController.navigate(NavigationItem.FoodDetailScreen.route)
+                            }
+                        )
+                    }
+                    //
                     composable(Screen.FAVORITES.name) { FavoritesScreen() }
                     composable(Screen.CART.name) { CartScreen() }
                     composable(Screen.PROFILE.name) { ProfileScreen() }
