@@ -18,6 +18,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.OutlinedTextFieldDefaults
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -25,19 +26,23 @@ import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import com.muratguzel.tastygo.presentation.foods.components.FoodItem
+import com.muratguzel.tastygo.presentation.common.components.FoodItem
 import com.muratguzel.tastygo.presentation.foods.viewmodel.FoodViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.presentation.favorites.viewmodel.FavoritesViewModel
 
 
 @Composable
 fun FoodListScreen(
     foodViewModel: FoodViewModel = hiltViewModel(),
+    favoritesViewModel: FavoritesViewModel =hiltViewModel(),
     cardOnClick: (Food) -> Unit,
     addOnClick: (Food) -> Unit
 ) {
     val state = foodViewModel.foodState.value
+
+    val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
 
     val gridState = rememberLazyGridState()
 
@@ -71,13 +76,16 @@ fun FoodListScreen(
         ) {
 
             items(foods) { food ->
+                val isFav = favoriteIds.contains(food.foodId)
+
                 FoodItem(
                     title = food.foodName,
                     price = food.foodPrice,
+                    isFavorite = isFav,
                     imageUrl = food.foodImageName,
                     onAddClick = { addOnClick },
                     cardOnClick = { cardOnClick(food) },
-                    onFavoriteClick = { /* ... */ }
+                    onFavoriteClick = { favoritesViewModel.onFavoriteClick(food) }
                 )
                 Log.e("FoodImage", food.foodImageName)
             }

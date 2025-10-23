@@ -14,7 +14,7 @@ import javax.inject.Inject
 
 class FoodUseCase @Inject constructor(private val foodRepository: FoodRepository) {
 
-    fun getCrypto(): Flow<Resource<List<Food>>> = flow {
+    fun getFood(): Flow<Resource<List<Food>>> = flow {
         try {
             emit(Resource.Loading())
             val food = foodRepository.getFood()

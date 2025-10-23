@@ -9,6 +9,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.navigationBarsPadding
 import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -21,7 +22,6 @@ import androidx.navigation.NavController
 import androidx.navigation.NavDestination.Companion.hierarchy
 import androidx.navigation.compose.currentBackStackEntryAsState
 import com.muratguzel.tastygo.presentation.navigation.BottomNavItem
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
 
 
 @Composable
@@ -37,7 +37,7 @@ fun BottomBar(navController: NavController) {
     val currentDestination = navBackStackEntry.value?.destination
 
     // renkler
-    val selectedColor = Orange
+    val selectedColor = MaterialTheme.colorScheme.primary
     val unselectedColor = Color(0xFF9CA3AF)
     val barBg = Color.White
 

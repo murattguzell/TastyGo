@@ -21,12 +21,14 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
+import androidx.hilt.navigation.compose.hiltViewModel
 import com.muratguzel.tastygo.domain.model.Food
 import com.muratguzel.tastygo.presentation.common.components.NetworkImage
 import com.muratguzel.tastygo.presentation.detail.components.BottomBar
 import com.muratguzel.tastygo.presentation.detail.components.InfoChip
 import com.muratguzel.tastygo.presentation.detail.components.RoundButton
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
+import com.muratguzel.tastygo.presentation.favorites.viewmodel.FavoritesViewModel
+import com.muratguzel.tastygo.presentation.foods.viewmodel.FoodViewModel
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -34,13 +36,14 @@ fun FoodDetailScreen(
     modifier: Modifier = Modifier,
     food: Food,
     onBackClick: () -> Unit,
-    onFavoriteClick: () -> Unit
+    favoritesViewModel: FavoritesViewModel = hiltViewModel(),
 ) {
     var quantity by rememberSaveable { mutableStateOf(1) }
     val unitPrice = food.foodPrice.toInt()
     val totalPrice = unitPrice * quantity
+    val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
+    val isFavorite = favoriteIds.contains(food.foodId)
 
-    var isFavorite by remember { mutableStateOf(false) }
 
     Scaffold(
         containerColor = Color.Transparent,
@@ -56,7 +59,7 @@ fun FoodDetailScreen(
                     )
                 },
                 navigationIcon = {
-                    IconButton(onClick =  onBackClick) {
+                    IconButton(onClick = onBackClick) {
                         Icon(
                             Icons.Default.Close,
                             contentDescription = "Geri",
@@ -65,16 +68,17 @@ fun FoodDetailScreen(
                     }
                 },
                 actions = {
-                    IconButton(onClick = {  isFavorite = !isFavorite
-                        onFavoriteClick()}) {
+                    IconButton(onClick = {
+                        favoritesViewModel.onFavoriteClick(food)
+                    }) {
                         Icon(
                             imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                             contentDescription = "Favori",
-                            tint =  Color.White
+                            tint = Color.White
                         )
                     }
                 },
-                colors = TopAppBarDefaults.topAppBarColors(containerColor = Orange)
+                colors = TopAppBarDefaults.topAppBarColors(containerColor = MaterialTheme.colorScheme.primary)
             )
         },
         bottomBar = {
@@ -99,9 +103,9 @@ fun FoodDetailScreen(
                         i < rating && rating % 1f >= 0.25f -> Icons.Rounded.StarHalf
                         else -> Icons.Outlined.StarBorder
                     }
-                    Icon(icon, contentDescription = null, tint = Orange)
+                    Icon(icon, contentDescription = null, tint = MaterialTheme.colorScheme.primary)
                 }
-                }
+            }
 
 
             Spacer(Modifier.weight(1f))
@@ -121,7 +125,7 @@ fun FoodDetailScreen(
                 text = "₺ ${food.foodPrice}",
                 fontSize = 22.sp,
                 fontWeight = FontWeight.Bold,
-                color = Orange,
+                color = MaterialTheme.colorScheme.primary,
                 modifier = Modifier.align(Alignment.CenterHorizontally)
             )
             Spacer(Modifier.height(12.dp))

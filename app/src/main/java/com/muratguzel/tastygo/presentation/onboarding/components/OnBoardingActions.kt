@@ -9,22 +9,22 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Button
 import androidx.compose.material3.ButtonColors
 import androidx.compose.material3.ButtonDefaults
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
 
 @Composable
 fun OnboardingActions(isLastPage: Boolean,
-    onSkip: () -> Unit,
-    onNext: () -> Unit,
-    onFinish: () -> Unit,
-    modifier: Modifier = Modifier,
-    nextButtonColors: ButtonColors = ButtonDefaults.buttonColors(Orange),
-    finishButtonColors: ButtonColors = ButtonDefaults.buttonColors(Orange)
+                      onSkip: () -> Unit,
+                      onNext: () -> Unit,
+                      onFinish: () -> Unit,
+                      modifier: Modifier = Modifier,
+                      nextButtonColors: ButtonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary),
+                      finishButtonColors: ButtonColors = ButtonDefaults.buttonColors(MaterialTheme.colorScheme.primary)
 ) {
     if (!isLastPage) {
         Row(
@@ -37,7 +37,7 @@ fun OnboardingActions(isLastPage: Boolean,
                 onClick = onSkip,
                 modifier = Modifier.height(56.dp)
             ) {
-                Text(text = "Skip", style = TextStyle(color = Orange))
+                Text(text = "Skip", style = TextStyle(color = MaterialTheme.colorScheme.primary))
             }
             Button(
                 onClick = onNext,

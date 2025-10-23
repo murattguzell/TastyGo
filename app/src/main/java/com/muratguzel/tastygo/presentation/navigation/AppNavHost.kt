@@ -3,6 +3,7 @@ package com.muratguzel.tastygo.presentation.navigation
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.CenterAlignedTopAppBar
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
@@ -16,7 +17,6 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import androidx.navigation.navArgument
 import com.muratguzel.tastygo.domain.model.Food
 import com.muratguzel.tastygo.presentation.cart.view.CartScreen
 import com.muratguzel.tastygo.presentation.detail.view.FoodDetailScreen
@@ -27,7 +27,6 @@ import com.muratguzel.tastygo.presentation.onboarding.viewmodel.OnboardingViewMo
 import com.muratguzel.tastygo.presentation.splash.view.SplashScreen
 import com.muratguzel.tastygo.presentation.navigation.components.BottomBar
 import com.muratguzel.tastygo.presentation.profile.view.ProfileScreen
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -77,7 +76,7 @@ fun AppNavHost(
                 ?.get("food")
 
             if (food != null) {
-                FoodDetailScreen(food = food, onBackClick = {navController.popBackStack()}, onFavoriteClick = {})
+                FoodDetailScreen(food = food, onBackClick = {navController.popBackStack()})
             }
         }
 
@@ -91,7 +90,7 @@ fun AppNavHost(
                     CenterAlignedTopAppBar(
                         title = { Text("TastyGO", color = Color.Black) },
                         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
-                            containerColor = Orange
+                            containerColor = MaterialTheme.colorScheme.primary
                         )
                     )
                 },
@@ -117,7 +116,13 @@ fun AppNavHost(
                         )
                     }
                     //
-                    composable(Screen.FAVORITES.name) { FavoritesScreen() }
+                    composable(Screen.FAVORITES.name) { FavoritesScreen(cardOnClick = { food ->
+                        navController.currentBackStackEntry
+                            ?.savedStateHandle
+                            ?.set("food", food)
+
+                        navController.navigate(NavigationItem.FoodDetailScreen.route)
+                    }) }
                     composable(Screen.CART.name) { CartScreen() }
                     composable(Screen.PROFILE.name) { ProfileScreen() }
                 }

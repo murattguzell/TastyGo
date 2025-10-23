@@ -65,12 +65,17 @@ dependencies {
     // Retrofit + OkHttp
     implementation(libs.retrofit)
     implementation(libs.converter.gson)
-    implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.14")
-    implementation("com.squareup.okhttp3:logging-interceptor:5.0.0-alpha.14")
+    implementation(libs.okhttp.v500alpha14)
+    implementation(libs.logging.interceptor.v500alpha14)
     // Dagger Hilt
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
-    implementation(libs.androidx.hilt.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose.v120)
     implementation(libs.androidx.datastore.preferences)
-    implementation("androidx.compose.material:material-icons-extended")
+    implementation(libs.androidx.material.icons.extended)
+
+
+    implementation("androidx.room:room-runtime:2.6.1")
+    implementation("androidx.room:room-ktx:2.6.1")
+    ksp("androidx.room:room-compiler:2.6.1")
 }

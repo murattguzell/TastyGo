@@ -6,6 +6,7 @@ import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.pager.HorizontalPager
 import androidx.compose.foundation.pager.rememberPagerState
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.mutableStateOf
@@ -14,13 +15,10 @@ import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.runtime.snapshotFlow
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.navigation.NavHostController
-import com.muratguzel.tastygo.presentation.navigation.NavigationItem
 import com.muratguzel.tastygo.presentation.onboarding.components.PageIndicators
 import com.muratguzel.tastygo.presentation.onboarding.components.OnboardingActions
 import com.muratguzel.tastygo.presentation.onboarding.model.listData
 import com.muratguzel.tastygo.presentation.ui.theme.Grey
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
 import kotlinx.coroutines.launch
 import com.muratguzel.tastygo.presentation.onboarding.components.OnboardingPageView
 
@@ -55,7 +53,7 @@ fun OnBoardingScreen(onFinish: () -> Unit) {
         PageIndicators(
             pageCount = listData.size,
             selectedIndex = selectedPage,
-            activeColor = Orange,
+            activeColor = MaterialTheme.colorScheme.primary,
             inactiveColor = Grey
         )
 

@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.presentation.foods.components
+package com.muratguzel.tastygo.presentation.common.components
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.layout.Arrangement
@@ -11,25 +11,23 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.focus.focusModifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.muratguzel.tastygo.presentation.common.components.NetworkImage
-import com.muratguzel.tastygo.presentation.ui.theme.Orange
 
 @Composable
 fun FoodItem(
     title: String,
     price: String,
     imageUrl: String,
+    isFavorite: Boolean =false,
     cardOnClick: () -> Unit,
     onAddClick: () -> Unit,
     onFavoriteClick: () -> Unit
 ) {
-    var isFavorite by remember { mutableStateOf(false) }
 
     Card(
         modifier = Modifier
@@ -61,7 +59,6 @@ fun FoodItem(
                 )
                 IconButton(
                     onClick = {
-                        isFavorite = !isFavorite
                         onFavoriteClick()
                     },
                     modifier = Modifier
@@ -71,7 +68,7 @@ fun FoodItem(
                     Icon(
                         imageVector = if (isFavorite) Icons.Filled.Favorite else Icons.Outlined.FavoriteBorder,
                         contentDescription = "Favori",
-                        tint = if (isFavorite) Orange else Color.Black,
+                        tint = if (isFavorite) MaterialTheme.colorScheme.primary else Color.Black,
                     )
                 }
             }
@@ -84,7 +81,7 @@ fun FoodItem(
                 fontSize = 18.sp,
                 textAlign = TextAlign.Center,
                 maxLines = 2,
-                overflow = androidx.compose.ui.text.style.TextOverflow.Ellipsis,
+                overflow = TextOverflow.Ellipsis,
                 modifier = Modifier
                     .fillMaxWidth()
 
@@ -126,7 +123,7 @@ fun FoodItem(
                     text = "₺ ${price}",
                     fontWeight = FontWeight.SemiBold,
                     style = MaterialTheme.typography.bodyLarge,
-                    color = Orange,
+                    color = MaterialTheme.colorScheme.primary,
                     fontSize = 18.sp,
 
                     )
@@ -135,7 +132,7 @@ fun FoodItem(
                     onClick = onAddClick,
                     modifier = Modifier.height(40.dp),
                     shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = Orange)
+                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
                 ) {
                     Text("+", fontSize = 20.sp)
                 }
