@@ -1,7 +1,7 @@
 package com.muratguzel.tastygo.domain.repository
 
-import com.muratguzel.tastygo.data.remote.dto.FoodDTO
+import com.muratguzel.tastygo.data.remote.dto.food.FoodListResponseDTO
 
 interface FoodRepository {
-    suspend fun getFood(): FoodDTO
+    suspend fun getFood(): FoodListResponseDTO
 }
