@@ -58,7 +58,7 @@ fun FoodListScreen(
             value = query,
             onValueChange = { query = it },
             leadingIcon = { Icon(Icons.Filled.Search, contentDescription = "Ara") },
-            placeholder = { Text("Ara") },
+            placeholder = { Text("Yemek Ara") },
             singleLine = true,
             modifier = Modifier
                 .fillMaxWidth()
