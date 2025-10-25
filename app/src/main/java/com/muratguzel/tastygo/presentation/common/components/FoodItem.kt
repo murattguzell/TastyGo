@@ -5,10 +5,20 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.outlined.FavoriteBorder
 import androidx.compose.material.icons.outlined.Motorcycle
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
+import androidx.compose.foundation.interaction.MutableInteractionSource
+import androidx.compose.animation.core.Animatable
+import androidx.compose.animation.core.Spring
+import androidx.compose.animation.core.spring
+import kotlinx.coroutines.launch
+import androidx.compose.runtime.rememberCoroutineScope
+import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.ui.platform.LocalHapticFeedback
+import androidx.compose.ui.hapticfeedback.HapticFeedbackType
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -128,13 +138,45 @@ fun FoodItem(
 
                     )
 
-                FilledTonalButton(
-                    onClick = onAddClick,
-                    modifier = Modifier.height(40.dp),
+                // "+" butonu: ripple + bounce (zıplama) animasyonu + haptic
+                val interaction = remember { MutableInteractionSource() }
+                val haptics = LocalHapticFeedback.current
+                val scope = rememberCoroutineScope()
+                val scale = remember { Animatable(1f) }
+
+                FilledIconButton(
+                    onClick = {
+                        haptics.performHapticFeedback(HapticFeedbackType.LongPress)
+                        // Zıplama animasyonu: önce küçül, sonra geri büyü
+                        scope.launch {
+                            scale.animateTo(
+                                targetValue = 0.90f,
+                                animationSpec = spring(
+                                    dampingRatio = 0.35f,
+                                    stiffness = Spring.StiffnessHigh
+                                )
+                            )
+                            scale.animateTo(
+                                targetValue = 1f,
+                                animationSpec = spring(
+                                    dampingRatio = 0.30f,
+                                    stiffness = Spring.StiffnessMedium
+                                )
+                            )
+                        }
+                        onAddClick()
+                    },
+                    modifier = Modifier
+                        .size(40.dp)
+                        .graphicsLayer(scaleX = scale.value, scaleY = scale.value),
+                    interactionSource = interaction,
                     shape = RoundedCornerShape(8.dp),
-                    colors = ButtonDefaults.buttonColors(containerColor = MaterialTheme.colorScheme.primary)
+                    colors = IconButtonDefaults.filledIconButtonColors(
+                        containerColor = MaterialTheme.colorScheme.primary,
+                        contentColor = MaterialTheme.colorScheme.onPrimary
+                    )
                 ) {
-                    Text("+", fontSize = 20.sp)
+                    Icon(Icons.Filled.Add, contentDescription = "Sepete ekle")
                 }
             }
         }

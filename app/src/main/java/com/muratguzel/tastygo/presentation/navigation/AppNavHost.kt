@@ -17,7 +17,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.food.Food
 import com.muratguzel.tastygo.presentation.cart.view.CartScreen
 import com.muratguzel.tastygo.presentation.detail.view.FoodDetailScreen
 import com.muratguzel.tastygo.presentation.favorites.view.FavoritesScreen
@@ -111,7 +111,7 @@ fun AppNavHost(
 
                                 navController.navigate(NavigationItem.FoodDetailScreen.route)
                             },
-                            addOnClick = { /* ... */ }
+
 
                         )
                     }

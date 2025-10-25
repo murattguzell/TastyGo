@@ -1,5 +1,6 @@
 package com.muratguzel.tastygo.di
 
+import com.muratguzel.tastygo.data.remote.CartAPI
 import com.muratguzel.tastygo.data.remote.FoodAPI
 import com.muratguzel.tastygo.data.repository.FoodRepositoryImpl
 import com.muratguzel.tastygo.domain.repository.FoodRepository
@@ -18,13 +19,9 @@ object FoodModule {
 
     @Singleton
     @Provides
-    fun provideFoodApi(): FoodAPI {
-        return Retrofit.Builder()
-            .baseUrl(BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
-            .create(FoodAPI::class.java)
-    }
+    fun provideFoodApi(retrofit: Retrofit): FoodAPI =
+        retrofit.create(FoodAPI::class.java)
+
     @Singleton
     @Provides
     fun provideFoodRepository(foodAPI: FoodAPI): FoodRepository{

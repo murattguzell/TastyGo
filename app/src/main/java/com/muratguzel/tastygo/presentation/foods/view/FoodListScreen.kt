@@ -29,7 +29,9 @@ import androidx.compose.ui.unit.dp
 import com.muratguzel.tastygo.presentation.common.components.FoodItem
 import com.muratguzel.tastygo.presentation.foods.viewmodel.FoodViewModel
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.cart.AddToCartRequest
+import com.muratguzel.tastygo.domain.model.food.Food
+import com.muratguzel.tastygo.presentation.cart.viewmodel.CartViewModel
 import com.muratguzel.tastygo.presentation.favorites.viewmodel.FavoritesViewModel
 
 
@@ -38,7 +40,7 @@ fun FoodListScreen(
     foodViewModel: FoodViewModel = hiltViewModel(),
     favoritesViewModel: FavoritesViewModel =hiltViewModel(),
     cardOnClick: (Food) -> Unit,
-    addOnClick: (Food) -> Unit
+    cartViewModel: CartViewModel = hiltViewModel()
 ) {
     val state = foodViewModel.foodState.value
 
@@ -83,7 +85,7 @@ fun FoodListScreen(
                     price = food.foodPrice,
                     isFavorite = isFav,
                     imageUrl = food.foodImageName,
-                    onAddClick = { addOnClick },
+                    onAddClick = { cartViewModel.addToCartSmart(AddToCartRequest("murat",food.foodName, food.foodPrice, food.foodImageName,"1")) },
                     cardOnClick = { cardOnClick(food) },
                     onFavoriteClick = { favoritesViewModel.onFavoriteClick(food) }
                 )

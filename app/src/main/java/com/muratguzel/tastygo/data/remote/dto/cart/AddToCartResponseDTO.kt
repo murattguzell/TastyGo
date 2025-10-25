@@ -1,6 +1,6 @@
 package com.muratguzel.tastygo.data.remote.dto.cart
 
-data class AddToCartResponse(
+data class AddToCartResponseDTO(
     val success: Int,
     val message: String
 )

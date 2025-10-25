@@ -3,8 +3,8 @@ package com.muratguzel.tastygo.presentation.favorites.viewmodel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.muratguzel.tastygo.data.mapper.toFood
-import com.muratguzel.tastygo.data.repository.FavoriteRepository
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.food.Food
+import com.muratguzel.tastygo.domain.repository.FavoriteRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import jakarta.inject.Inject
 import kotlinx.coroutines.flow.SharingStarted
@@ -27,7 +27,7 @@ class FavoritesViewModel @Inject constructor(
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(5000), emptySet())
 
     fun removeOrInsert(id: String) = viewModelScope.launch {
-        favoriteRepository.toggleFavorite(food = Food(id))
+        favoriteRepository.toggleFavorite(food = Food(foodId = id))
     }
 
     fun onFavoriteClick(food: Food) = viewModelScope.launch {

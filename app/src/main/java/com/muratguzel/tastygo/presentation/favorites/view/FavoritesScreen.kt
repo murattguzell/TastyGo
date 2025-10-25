@@ -25,14 +25,17 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.cart.AddToCartRequest
+import com.muratguzel.tastygo.domain.model.food.Food
+import com.muratguzel.tastygo.presentation.cart.viewmodel.CartViewModel
 import com.muratguzel.tastygo.presentation.common.components.FoodItem
 import com.muratguzel.tastygo.presentation.favorites.viewmodel.FavoritesViewModel
 
 @Composable
 fun FavoritesScreen(
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
-    cardOnClick: (Food) -> Unit
+    cardOnClick: (Food) -> Unit,
+    cartViewModel: CartViewModel = hiltViewModel(),
 ) {
     val items by favoritesViewModel.favorites.collectAsState()
     val favoriteIds by favoritesViewModel.favoriteIds.collectAsState()
@@ -66,12 +69,12 @@ fun FavoritesScreen(
     ) {
         items(filteredItems) { food ->
             FoodItem(
-                title = food.foodId,
+                title = food.foodName,
                 price = food.foodPrice,
                 imageUrl = food.foodImageName,
                 isFavorite = favoriteIds.contains(food.foodId),
                 cardOnClick = { cardOnClick(food) },
-                onAddClick = { /* sepete ekle */ },
+                onAddClick = { cartViewModel.addToCartSmart(AddToCartRequest("murat",food.foodName, food.foodPrice, food.foodImageName, "1")) },
                 onFavoriteClick = { favoritesViewModel.removeOrInsert(food.foodId) }
             )
         }

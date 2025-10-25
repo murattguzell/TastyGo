@@ -1,29 +1,35 @@
 package com.muratguzel.tastygo.data.remote
 
-import com.muratguzel.tastygo.data.remote.dto.cart.AddToCartRequest
-import com.muratguzel.tastygo.data.remote.dto.cart.AddToCartResponse
+import com.muratguzel.tastygo.data.remote.dto.cart.AddToCartResponseDTO
 import com.muratguzel.tastygo.data.remote.dto.cart.CartListResponseDTO
-import com.muratguzel.tastygo.data.remote.dto.cart.DeleteFromCartRequest
-import com.muratguzel.tastygo.data.remote.dto.cart.DeleteFromCartResponse
-import com.muratguzel.tastygo.data.remote.dto.cart.GetCartItemsRequest
-import retrofit2.http.Body
-import retrofit2.http.GET
+import com.muratguzel.tastygo.data.remote.dto.cart.DeleteFromCartResponseDTO
+import retrofit2.http.Field
+import retrofit2.http.FormUrlEncoded
 import retrofit2.http.POST
 
-interface CartApi {
+interface CartAPI {
 
+    @FormUrlEncoded
     @POST("sepeteYemekEkle.php")
     suspend fun addToCart(
-        @Body request: AddToCartRequest
-    ):AddToCartResponse
-
-    @GET("sepettekiYemekleriGetir.php")
+        @Field("yemek_adi") foodName: String,
+        @Field("yemek_resim_adi") foodImageName: String,
+        @Field("yemek_fiyat") foodPrice: Int,
+        @Field("yemek_siparis_adet") orderQuantity: Int,
+        @Field("kullanici_adi") userName: String
+    ): AddToCartResponseDTO
+    @FormUrlEncoded
+    @POST("sepettekiYemekleriGetir.php")
     suspend fun getCartItems(
-        @Body request: GetCartItemsRequest
+        @Field("kullanici_adi") userName: String
     ): CartListResponseDTO
 
+    @FormUrlEncoded
     @POST("sepettenYemekSil.php")
     suspend fun deleteFromCart(
-        @Body request: DeleteFromCartRequest
-    ): DeleteFromCartResponse
+        @Field("kullanici_adi")
+        userName: String,
+        @Field("sepet_yemek_id")
+        cartItemId: Int
+    ): DeleteFromCartResponseDTO
 }

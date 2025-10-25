@@ -4,8 +4,7 @@ import androidx.compose.runtime.State
 import androidx.compose.runtime.mutableStateOf
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
-import com.muratguzel.tastygo.data.repository.FavoriteRepository
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.repository.FavoriteRepository
 import com.muratguzel.tastygo.domain.usecase.food.FoodUseCase
 import com.muratguzel.tastygo.presentation.foods.state.FoodState
 import com.muratguzel.tastygo.util.Resource

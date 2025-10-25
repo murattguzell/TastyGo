@@ -22,7 +22,9 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.cart.AddToCartRequest
+import com.muratguzel.tastygo.domain.model.food.Food
+import com.muratguzel.tastygo.presentation.cart.viewmodel.CartViewModel
 import com.muratguzel.tastygo.presentation.common.components.NetworkImage
 import com.muratguzel.tastygo.presentation.detail.components.BottomBar
 import com.muratguzel.tastygo.presentation.detail.components.InfoChip
@@ -37,6 +39,7 @@ fun FoodDetailScreen(
     food: Food,
     onBackClick: () -> Unit,
     favoritesViewModel: FavoritesViewModel = hiltViewModel(),
+    cartViewModel: CartViewModel = hiltViewModel()
 ) {
     var quantity by rememberSaveable { mutableStateOf(1) }
     val unitPrice = food.foodPrice.toInt()
@@ -82,7 +85,9 @@ fun FoodDetailScreen(
             )
         },
         bottomBar = {
-            BottomBar(total = totalPrice)
+            BottomBar(total = totalPrice, onAddToCart = {
+                cartViewModel.addToCartSmart(AddToCartRequest("murat",food.foodName, food.foodPrice, food.foodImageName, quantity.toString()))
+            })
         }
     ) { innerPadding ->
         Column(

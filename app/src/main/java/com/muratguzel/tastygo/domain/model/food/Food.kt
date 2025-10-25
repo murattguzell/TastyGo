@@ -1,4 +1,4 @@
-package com.muratguzel.tastygo.domain.model
+package com.muratguzel.tastygo.domain.model.food
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize

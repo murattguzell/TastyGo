@@ -2,7 +2,7 @@ package com.muratguzel.tastygo.data.mapper
 
 import com.muratguzel.tastygo.data.local.entity.FavoriteFoodEntity
 import com.muratguzel.tastygo.data.remote.dto.food.FoodListResponseDTO
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.food.Food
 import com.muratguzel.tastygo.util.Constant.BASE_IMAGE_URL
 
 fun FoodListResponseDTO.toFood(): List<Food> {

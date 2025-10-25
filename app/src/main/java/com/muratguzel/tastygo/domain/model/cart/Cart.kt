@@ -1,5 +1,4 @@
-package com.muratguzel.tastygo.domain.model
-
+package com.muratguzel.tastygo.domain.model.cart
 
 data class Cart(
     val cartItemId: String,

@@ -2,7 +2,7 @@ package com.muratguzel.tastygo.domain.usecase.food
 
 import android.util.Log
 import com.muratguzel.tastygo.data.mapper.toFood
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.food.Food
 import com.muratguzel.tastygo.domain.repository.FoodRepository
 import com.muratguzel.tastygo.util.Resource
 import kotlinx.coroutines.flow.Flow

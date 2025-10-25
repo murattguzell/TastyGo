@@ -1,6 +1,6 @@
 package com.muratguzel.tastygo.presentation.foods.state
 
-import com.muratguzel.tastygo.domain.model.Food
+import com.muratguzel.tastygo.domain.model.food.Food
 
 
 data class FoodState(

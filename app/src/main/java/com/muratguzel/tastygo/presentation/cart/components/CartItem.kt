@@ -25,12 +25,12 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
-import com.muratguzel.tastygo.domain.model.Cart
+import com.muratguzel.tastygo.domain.model.cart.Cart
 import com.muratguzel.tastygo.presentation.common.components.NetworkImage
 
 
 @Composable
-fun CartItem(cart: Cart) {
+fun CartItem(cart: Cart,onDeleteClick:()-> Unit) {
     Card(
         modifier = Modifier
             .fillMaxWidth().height(120.dp)
@@ -77,7 +77,7 @@ fun CartItem(cart: Cart) {
                 verticalArrangement = Arrangement.SpaceBetween,
                 horizontalAlignment = Alignment.End){
                 IconButton(
-                    onClick = { /* TODO: Handle delete action */ },
+                    onClick = { onDeleteClick()},
                 ) {
                     Icon(
                         imageVector = Icons.Default.Delete,

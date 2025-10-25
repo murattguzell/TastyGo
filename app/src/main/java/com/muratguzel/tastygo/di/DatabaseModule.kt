@@ -4,6 +4,8 @@ import android.content.Context
 import androidx.room.Room
 import com.muratguzel.tastygo.data.local.dao.FavoriteDao
 import com.muratguzel.tastygo.data.local.db.AppDatabase
+import com.muratguzel.tastygo.data.repository.FavoriteRepositoryImpl
+import com.muratguzel.tastygo.domain.repository.FavoriteRepository
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -23,4 +25,8 @@ object DatabaseModule {
 
     @Provides
     fun provideFavoriteDao(db: AppDatabase): FavoriteDao = db.favoriteDao()
+
+    @Provides
+    fun provideFavoriteRepository(favoriteDao: FavoriteDao): FavoriteRepository =
+        FavoriteRepositoryImpl(favoriteDao)
 }
